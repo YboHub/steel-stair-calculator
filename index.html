@@ -1,0 +1,61 @@
+<style>
+/* 响应式优化 */
+.container {
+    padding: 10px;
+    width: 100%;
+}
+
+.input-group {
+    margin: 15px 0;
+}
+
+label {
+    display: block; /* 改为块级元素 */
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 90%;
+    padding: 10px; /* 增大点击区域 */
+    font-size: 16px; /* 手机端字号 */
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 18px;
+}
+
+#3d-container {
+    width: 100%; 
+    height: 50vh; /* 根据视口高度自适应 */
+    max-height: 400px;
+}
+
+/* 横屏优化 */
+@media (orientation: landscape) {
+    #3d-container {
+        height: 70vh;
+    }
+}
+@media (max-width: 600px) {
+  input { width: 100%; }
+  #3d-container { height: 300px; }
+}
+</style>
+
+<script>
+// 修改Three.js初始化部分
+function initThreeJS() {
+    const container = document.getElementById('3d-container');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    camera = new THREE.PerspectiveCamera(75, width/height, 0.1, 1000);
+    renderer.setSize(width, height);
+    
+    // 添加轨道控制器
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = true;
+}
+</script>
